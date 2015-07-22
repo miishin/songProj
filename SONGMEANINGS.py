@@ -40,7 +40,8 @@ def getLinks(aD):
 def getInfos(songs, artists, links):
     someList = []
     for x in xrange(len(songs)):
-        someList.append(songs[x] + "\n" + artists[x] + "\n" + links[x] + "\n")
+        temp = "<a href = " + links[x] + ">" + songs[x] + "</a>"
+        someList.append(temp + "\n" + artists[x] + "\n")
     return someList
 
 #api key
