@@ -3,13 +3,25 @@ import json
 
 
 def getPlaylist(artist):
-    songids = []
-    artists = []
-    y = urllib2.urlopen("http://developer.echonest.com/api/v4/playlist/static?api_key=KK2PINTHA7KOVR4DK&artist=" + artist + "&format=json&results=20&type=artist-radio&sort=artist_hotttnesss-desc")
+    fixedArtist = ""
+    if artist.find(" ") != -1:
+        for x in xrange(len(artist)):
+            if artist[x] == " ":
+                fixedArtist += "+"
+            else:
+                fixedArtist += artist[x]
+    else:
+        fixedArtist = artist
+    #print fixedArtist
+    y = urllib2.urlopen("http://developer.echonest.com/api/v4/playlist/static?api_key=KK2PINTHA7KOVR4DK&artist=" + fixedArtist + "&format=json&results=20&type=artist-radio&sort=artist_hotttnesss-desc")
     x = y.read()
     temp = json.loads(x)
-    songs = temp["response"]["songs"]
-    return songs
+    #songDicts = {}
+    try:
+        return temp["response"]["songs"]
+    except KeyError:
+        return temp["response"]["status"]
+    
 
 def getSongs(aD):
     songs = []
@@ -17,12 +29,6 @@ def getSongs(aD):
         songs.append(diction["title"])
     return songs 
 
-
-def getIDs(aD):
-    songids = []
-    for diction in aD:
-        songids.append(diction["id"])
-    return songids
 
 def getArtists(aD):
     artists = []
@@ -32,16 +38,18 @@ def getArtists(aD):
 
 def getLinks(aD):
     links = []
-    link = "http://http://songmeanings.com/songs/view/"
+    link = "http://songmeanings.com/songs/view/"
     for diction in aD:
         links.append(link + diction["id"] + "/")
     return links
 
 def getInfos(songs, artists, links):
     someList = []
-    for x in xrange(len(songs)):
-        temp = "<a href = " + links[x] + ">" + songs[x] + "</a>"
-        someList.append(temp + "\n" + artists[x] + "\n")
+    b = len(songs)
+    for x in xrange(b):
+        someList.append(songs[x])
+        someList.append(artists[x])
+        someList.append(links[x])
     return someList
 
 #api key
