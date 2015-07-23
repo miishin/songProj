@@ -38,9 +38,9 @@ def getArtists(aD):
 
 def getLinks(aD):
     links = []
-    link = "http://songmeanings.com/songs/view/"
+    link = 'http://songmeanings.com/songs/view/'
     for diction in aD:
-        links.append(link + diction["id"] + "/")
+        links.append(link + diction["id"] + '\n')
     return links
 
 def getInfos(songs, artists, links):
