@@ -1,0 +1,22 @@
+<!DOCYPE html>
+<html>
+<head>
+
+	<title>
+		Song
+	</title>
+
+</head>
+
+<body background = "static/background.jpg">
+
+	<form action = "/song" method="POST">
+		Artist: <input type = "text" name = "artistName"><br>
+		<input type="submit" value="Make a playlist!"><br>
+	</form>
+ 
+{% for x in nums%}
+<a href = "{{info[x+2]}}">{{info[x]}}</a>
+{% endfor %}
+</body>
+</html>
